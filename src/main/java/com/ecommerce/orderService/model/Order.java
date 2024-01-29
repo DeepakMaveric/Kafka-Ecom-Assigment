@@ -5,14 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="ORDERS")
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Order {
 
     @Id
@@ -21,6 +23,6 @@ public class Order {
     private String productId;
     private Integer quantity;
     @CreatedDate
-    private LocalDate createdDate;
+    private Date createdDate;
 
 }
