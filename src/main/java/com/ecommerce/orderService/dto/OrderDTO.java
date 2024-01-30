@@ -1,5 +1,6 @@
 package com.ecommerce.orderService.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -19,5 +20,6 @@ public class OrderDTO {
     private Integer quantity;
     private String status = "not dispatched";
     private Double totalPrice;
-    private Date createdDate;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private String createdDate;
 }

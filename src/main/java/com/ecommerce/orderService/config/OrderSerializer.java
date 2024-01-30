@@ -1,19 +1,20 @@
 package com.ecommerce.orderService.config;
 
 import com.ecommerce.orderService.dto.OrderDTO;
+import com.ecommerce.orderService.exception.OrderRunTimeException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.common.serialization.Serializer;
 
-import java.nio.charset.StandardCharsets;
-
 public class OrderSerializer implements Serializer<OrderDTO> {
+    private static final ObjectMapper mapper = new ObjectMapper();
+
     @Override
     public byte[] serialize(String topic, OrderDTO data) {
-        String text="orderId - "+data.getId()
-                +", productId - "+data.getProductId()
-                +", quantity - "+data.getQuantity()
-                +", totalPrice - "+data.getTotalPrice()
-                +", status - "+data.getStatus()
-                +", createdDate - "+data.getCreatedDate();
-        return text.getBytes(StandardCharsets.UTF_8);
+        try {
+            return mapper.writeValueAsBytes(data);
+        } catch (JsonProcessingException e) {
+           throw new OrderRunTimeException("Error while serializing - " + e.getMessage());
+        }
     }
 }

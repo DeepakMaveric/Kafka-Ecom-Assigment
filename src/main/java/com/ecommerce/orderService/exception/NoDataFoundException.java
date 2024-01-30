@@ -1,4 +1,4 @@
-package com.ecommerce.orderService.exception.exception;
+package com.ecommerce.orderService.exception;
 
 public class NoDataFoundException extends RuntimeException {
     public NoDataFoundException(String errorDescription) {
